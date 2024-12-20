@@ -19,7 +19,32 @@ const SignUpPage = () => {
     });
 
     const handleSignUp = async () => {
-        
+        fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/admin/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(signUpDetails),
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+
+            if (data.ok) {
+                toast.success('Admin registration is successful', {
+                    position: 'top-center',
+                });
+            } 
+            else {
+                toast.error('Admin registration has failed', {
+                    position: 'top-center',
+                });
+            }
+        }).catch(err => {
+            console.log(err);
+            toast.error('Error occurred during registration');
+        });
     }
 
   return (
