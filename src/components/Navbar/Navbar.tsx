@@ -8,6 +8,27 @@ import Link from 'next/link'
 const Navbar = () => {
     const [adminLoggedIn, setAdminLoggedIn] = useState<boolean>(false);
 
+    const checkAdminLogin = async () => {
+        fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/admin/checklogin', {
+          method: 'POST',
+          credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+    
+            if (data.ok) {
+                setAdminLoggedIn(true);
+            } 
+            else {
+                setAdminLoggedIn(false);
+            }
+        }).catch(err => console.log(err));
+      }
+
+      useEffect(() => {
+        checkAdminLogin();
+      }, []);
 
   return (
     <nav>
