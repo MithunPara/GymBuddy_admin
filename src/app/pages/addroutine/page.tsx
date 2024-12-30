@@ -61,7 +61,50 @@ const page = () => {
     const saveRoutine = () => {}
 
   return (
-    <div>
+    <div className='input-form'>
+        <h1 className='title'>Add Routine</h1>
+
+        <input 
+            type='text' 
+            placeholder='Routine Name' 
+            name='name' // Adding this name field to the input element will allow handleRoutineChange function to access the event target name and update the name attribute within the routine state variable
+            value={routine.name} 
+            onChange={handleRoutineChange} 
+        />
+
+        <textarea 
+            placeholder='Routine Details'
+            value={routine.details}
+            onChange={(e) => {
+                setRoutine({
+                    ...routine,
+                    details: e.target.value
+                })
+            }}
+            rows={5}
+            cols={50}
+        />
+
+        <input 
+            type='number'
+            placeholder='Routine Duration'
+            name='lengthMinutes'
+            value={routine.lengthMinutes}
+            onChange={handleRoutineChange}
+        />
+
+        <input 
+            type='file'
+            placeholder='Routine Image'
+            onChange={(e) => {
+                setRoutine({
+                    ...routine,
+                    imageFile: e.target.files![0]
+                })
+            }}    
+        />
+
+        
 
     </div>
   )
