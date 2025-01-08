@@ -24,11 +24,11 @@ const Navbar = () => {
                 setAdminLoggedIn(false);
             }
         }).catch(err => console.log(err));
-      }
+    }
 
-      useEffect(() => {
+    useEffect(() => {
         checkAdminLogin();
-      }, []);
+    }, []);
 
   return (
     <nav>

@@ -85,10 +85,70 @@ const page = () => {
             exercises: routine.exercises.filter((exercise, indexVal) => indexVal !== index)
         })
     }
-    const checkAdminLogin = () => {}
-    const uploadImage = () => {}
-    const saveRoutine = () => {
+    const checkAdminLogin = async () => {
+        fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/admin/checklogin', {
+            method: 'POST',
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {    
+            if (data.ok) {
+                console.log('Admin is authenticated');
+            } 
+            else {
+                console.log('Admin is not authenticated');
+                window.location.href = '/adminauth/login';
+            }
+          }).catch(err => console.log(err));
+    }
+    const uploadImage = async (image: File) => {
+        const formData = new FormData();
+        formData.append('myimage', image);
+
+        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/imageupload/uploadimage', {
+            method: 'POST',
+            body: formData
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Image has been uploaded successfully.', data);
+            return data.imageUrl; // return the Cloudinary image URL so it can be used to set the routine image URLs
+        } else {
+            console.log('Error uploading the image.');
+            return null;
+        }
+
+    }
+    const saveRoutine = async () => {
+        await checkAdminLogin();
+
         console.log(routine)
+
+        if (routine.name == '' || routine.details == '' || routine.lengthMinutes == 0 || routine.exercises.length == 0 || routine.imageFile == null) {
+            toast.error('Please fill all the routine fields', {
+                position: 'top-center'
+            })
+            return;
+        }
+
+        if (routine.imageFile) {
+            const imageURL = await uploadImage(routine.imageFile);
+            if (imageURL) {
+                setRoutine({
+                    ...routine,
+                    imageURL
+                })
+            }
+        }
+
+        for (let i = 0; i < routine.exercises.length; i++) {
+            let tempImg = routine.exercises[i].imageFile;
+            if (tempImg) {
+                let imageURL = await uploadImage(tempImg);
+                routine.exercises[i].imageURL = imageURL;
+            }
+        }
+        
     }
 
   return (
