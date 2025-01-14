@@ -131,13 +131,14 @@ const page = () => {
             return;
         }
 
+        // Use a copy of the state variable to avoid using setState to update the imageURL value, state updates are asynchronous
+        // so imageURL will not be updated before the routine is saved in backend
+        let updatedRoutine = { ...routine };
+
         if (routine.imageFile) {
             const imageURL = await uploadImage(routine.imageFile);
             if (imageURL) {
-                setRoutine({
-                    ...routine,
-                    imageURL
-                })
+                updatedRoutine.imageURL = imageURL;
             }
         }
 
@@ -145,10 +146,31 @@ const page = () => {
             let tempImg = routine.exercises[i].imageFile;
             if (tempImg) {
                 let imageURL = await uploadImage(tempImg);
-                routine.exercises[i].imageURL = imageURL;
+                updatedRoutine.exercises[i].imageURL = imageURL;
             }
         }
         
+        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + '/workoutroutines/routines', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedRoutine),
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Routine saved successfully', data);
+            toast.success('Routine saved successfully', {
+                position: 'top-center'
+            });
+        } else {
+            console.error('Error saving routine', response.statusText);
+            toast.error('Error saving routine', {
+                position: 'top-center'
+            });
+        }
     }
 
   return (
