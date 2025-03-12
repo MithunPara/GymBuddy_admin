@@ -70,14 +70,14 @@ const page = () => {
             exercises: [...routine.exercises, exercise]
         })
         // Clear the exercise state variable to add new exercises
-        // setExercise({
-        //     name: '',
-        //     details: '',
-        //     sets: 0,
-        //     reps: 0,
-        //     imageURL: '',
-        //     imageFile: null
-        // })
+        setExercise({
+            name: '',
+            details: '',
+            sets: 0,
+            reps: 0,
+            imageURL: '',
+            imageFile: null
+        })
     }
     const deleteExerciseFromRoutine = (index: number) => {
         setRoutine({
@@ -164,6 +164,14 @@ const page = () => {
             console.log('Routine saved successfully', data);
             toast.success('Routine saved successfully', {
                 position: 'top-center'
+            });
+            setRoutine({
+                name: '',
+                details: '',
+                lengthMinutes: 0,
+                exercises: [],
+                imageURL: '',
+                imageFile: null
             });
         } else {
             console.error('Error saving routine', response.statusText);
