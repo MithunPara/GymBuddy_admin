@@ -36,7 +36,10 @@ const Navbar = () => {
         <div>
         {
             adminLoggedIn ? (
-                <Link href='/pages/addroutine'>Add Routine</Link>
+                <>
+                    <Link href='/pages/addroutine'>Add Routine</Link>
+                    <Link href='/pages/deleteroutine'>Delete Routine</Link>
+                </>
             ) : (
                 <>
                     <Link href='/adminauth/login'>Login</Link>
