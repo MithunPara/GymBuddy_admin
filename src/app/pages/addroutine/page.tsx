@@ -185,49 +185,54 @@ const page = () => {
     <div className='input-form'>
         <h1 className='title'>Add Routine</h1>
 
-        <input 
-            type='text' 
-            placeholder='Routine Name' 
-            name='name' // Adding this name field to the input element will allow handleRoutineChange function to access the event target name and update the name attribute within the routine state variable
-            value={routine.name} 
-            onChange={handleRoutineChange} 
-        />
+        <div className='inputs'>
+            <input 
+                type='text' 
+                placeholder='Routine Name' 
+                name='name' // Adding this name field to the input element will allow handleRoutineChange function to access the event target name and update the name attribute within the routine state variable
+                value={routine.name} 
+                onChange={handleRoutineChange} 
+            />
 
-        <textarea 
-            placeholder='Routine Details'
-            value={routine.details}
-            onChange={(e) => {
-                setRoutine({
-                    ...routine,
-                    details: e.target.value
-                })
-            }}
-            rows={5}
-            cols={50}
-        />
+            <textarea 
+                placeholder='Routine Details'
+                value={routine.details}
+                onChange={(e) => {
+                    setRoutine({
+                        ...routine,
+                        details: e.target.value
+                    })
+                }}
+                rows={5}
+                cols={50}
+            />
 
-        <input 
-            type='number'
-            placeholder='Routine Duration'
-            name='lengthMinutes'
-            value={routine.lengthMinutes}
-            onChange={handleRoutineChange}
-        />
+            <div className='exercise-number-headers'>
+                <span>Routine Duration</span>
+                <input 
+                    type='number'
+                    placeholder='Routine Duration'
+                    name='lengthMinutes'
+                    value={routine.lengthMinutes}
+                    onChange={handleRoutineChange}
+                />
+            </div>     
 
-        <input 
-            type='file'
-            placeholder='Routine Image'
-            onChange={(e) => {
-                setRoutine({
-                    ...routine,
-                    imageFile: e.target.files![0]
-                })
-            }}    
-        />
+            <input 
+                type='file'
+                placeholder='Routine Image'
+                onChange={(e) => {
+                    setRoutine({
+                        ...routine,
+                        imageFile: e.target.files![0]
+                    })
+                }}    
+            />
+        </div>
 
-        <div>
-            <h2 className='title'>Add an Exercise</h2>
+        <h2 className='title'>Add an Exercise</h2>
 
+        <div className='inputs'>
             <input 
                 type='text' 
                 placeholder='Exercise Name' 
@@ -249,24 +254,28 @@ const page = () => {
                 cols={50}
             />
 
-            <span>Sets</span>
-            <input 
-                type='number'
-                placeholder='Number of sets'
-                name='sets'
-                value={exercise.sets}
-                onChange={handleExerciseChange}
-            />
+            <div className='exercise-number-headers'>
+                <span>Sets</span>
+                <input 
+                    type='number'
+                    placeholder='Number of sets'
+                    name='sets'
+                    value={exercise.sets}
+                    onChange={handleExerciseChange}
+                />
+            </div>
 
-            <span>Reps</span>
-            <input 
-                type='number'
-                placeholder='Number of reps'
-                name='reps'
-                value={exercise.reps}
-                onChange={handleExerciseChange}
-            />
-
+            <div className='exercise-number-headers'>
+                <span>Reps</span>
+                <input 
+                    type='number'
+                    placeholder='Number of reps'
+                    name='reps'
+                    value={exercise.reps}
+                    onChange={handleExerciseChange}
+                />
+            </div>
+            
             <input 
                 type='file'
                 placeholder='Exercise Image'

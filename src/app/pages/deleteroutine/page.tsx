@@ -111,8 +111,8 @@ const DeleteRoutine = () => {
                     <p>{routine.details}</p>
                     <div className='routine-exercises'>
                         {
-                            routine.exercises.map((exercise: Exercise, index: number) => (
-                                <div className='routine-exercise'>
+                            routine.exercises.map((exercise: Exercise, exerciseIndex: number) => (
+                                <div className='routine-exercise' key={exerciseIndex}>
                                     <span>{exercise.name}</span>
                                     <span>{exercise.sets} Sets x {exercise.reps} reps</span>
                                 </div>

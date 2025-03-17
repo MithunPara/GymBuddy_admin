@@ -34,9 +34,9 @@ button:hover {
   --col1: #dfff00;
 } */
 
-/* body {
+body {
   background-color: black;
-} */
+}
 
 ::-webkit-scrollbar {
   width: 6px;
