@@ -65,7 +65,8 @@
     font-weight: 500;
 }
 
-.input-form button {
+.add-button,
+.save-button {
     font-family: 'Montserrat', sans-serif;
     padding: 12px 16px;
     border: none;
@@ -78,7 +79,8 @@
     transition: background 0.3s ease-in-out;
 }
 
-.input-form button:hover {
+.add-button, 
+.save-button:hover {
     background-color: #45b06b;
 }
 
@@ -131,7 +133,7 @@
     object-fit: cover;
 }
 
-.exercise button {
+.delete-button {
     background-color: #50c878;
     color: white;
     font-size: 14px;

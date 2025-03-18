@@ -286,7 +286,7 @@ const page = () => {
                     })
                 }}    
             />
-            <button onClick={(e) => {
+            <button className='add-button' onClick={(e) => {
                 addExerciseToRoutine(e)
             }}>Add Exercise</button>
         </div>
@@ -307,13 +307,13 @@ const page = () => {
                             exercise.imageURL 
                         } alt='Exercise Image' />
 
-                        <button onClick={() => deleteExerciseFromRoutine(index)}>Delete Exercise</button>
+                        <button className='delete-button' onClick={() => deleteExerciseFromRoutine(index)}>Delete Exercise</button>
                     </div>
                 ))
             }
         </div>
 
-        <button onClick={(e) => {
+        <button className='save-button' onClick={(e) => {
             saveRoutine(e)
         }}>Save Routine</button>
     </div>
